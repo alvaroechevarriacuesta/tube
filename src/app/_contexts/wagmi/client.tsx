@@ -1,6 +1,8 @@
 'use client';
 
-import  {  WagmiProvider as WagmiProviderBase } from 'wagmi';
+import { WagmiProvider as WagmiProviderBase } from 'wagmi';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useState } from 'react';
 
 import { createWagmiConfig } from './config';
 
@@ -17,9 +19,22 @@ export const WagmiProviderClient: React.FC<Props> = ({
     children,
     initialState,
 }) => {
+    const [queryClient] = useState(
+        () =>
+            new QueryClient({
+                defaultOptions: {
+                    queries: {
+                        staleTime: 60 * 1000, // 1 minute
+                    },
+                },
+            })
+    );
+
     return (
-        <WagmiProviderBase config={wagmiConfig} initialState={initialState}>
-            {children}
-        </WagmiProviderBase>
+        <QueryClientProvider client={queryClient}>
+            <WagmiProviderBase config={wagmiConfig} initialState={initialState}>
+                {children}
+            </WagmiProviderBase>
+        </QueryClientProvider>
     );
 };

@@ -5,6 +5,7 @@ import { Navbar } from './_components/layout/navbar';
 import { Analytics } from '@vercel/analytics/next';
 import { Toaster } from '@/components/ui/sonner';
 import { WagmiProvider } from './_contexts/wagmi';
+import { SessionProvider } from './_providers/session-provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -43,10 +44,12 @@ export default function RootLayout({
       >
         <Toaster />
         <Analytics />
-        <WagmiProvider>
-        <Navbar />
-        {children}
-        </WagmiProvider>
+        <SessionProvider>
+          <WagmiProvider>
+            <Navbar />
+            {children}
+          </WagmiProvider>
+        </SessionProvider>
       </body>
     </html>
   );

@@ -12,6 +12,12 @@ const adapter = globalForPrisma.adapter || new PrismaNeon({ connectionString });
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.adapter = adapter;
 
-export const prisma = globalForPrisma.prisma || new PrismaClient({ adapter: adapter });
+export const prisma =
+  globalForPrisma.prisma ||
+  new PrismaClient({
+    adapter: adapter,
+  });
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 
