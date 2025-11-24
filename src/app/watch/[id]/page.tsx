@@ -14,9 +14,6 @@ export default async function WatchPage({ params }: WatchPageProps) {
     notFound();
   }
 
-  // For now, default all videos to the one in the public folder
-  const videoPath = "/videos/testing123.mp4";
-
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto p-4 md:p-8">
@@ -26,7 +23,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
             <p className="text-muted-foreground">{video.description}</p>
           )}
         </div>
-        <VideoPlayer videoPath={videoPath} video={video} />
+        <VideoPlayer id={id} video={video} />
       </div>
     </div>
   );

@@ -11,6 +11,8 @@ node_modules/
 # Testing
 coverage/
 
+output/
+
 # Next.js
 .next/
 out/
