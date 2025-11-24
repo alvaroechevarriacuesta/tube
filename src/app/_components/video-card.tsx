@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Card,
   CardHeader,
@@ -25,22 +26,24 @@ function formatDuration(seconds: number): string {
 
 export function VideoCard({ video }: VideoCardProps) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{video.title}</CardTitle>
-        {video.description && (
-          <CardDescription>{video.description}</CardDescription>
-        )}
-      </CardHeader>
-      <CardContent>
-        <p className="text-sm text-muted-foreground">
-          Duration: {formatDuration(video.duration)}
-        </p>
-      </CardContent>
-      <CardFooter className="text-xs text-muted-foreground">
-        ID: {video.id}
-      </CardFooter>
-    </Card>
+    <Link href={`/watch/${video.id}`} className="block">
+      <Card className="cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02]">
+        <CardHeader>
+          <CardTitle>{video.title}</CardTitle>
+          {video.description && (
+            <CardDescription>{video.description}</CardDescription>
+          )}
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground">
+            Duration: {formatDuration(video.duration)}
+          </p>
+        </CardContent>
+        <CardFooter className="text-xs text-muted-foreground">
+          ID: {video.id}
+        </CardFooter>
+      </Card>
+    </Link>
   );
 }
 
