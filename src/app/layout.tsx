@@ -6,6 +6,9 @@ import { Analytics } from '@vercel/analytics/next';
 import { Toaster } from '@/components/ui/sonner';
 import { WagmiProvider } from './_contexts/wagmi';
 import { SessionProvider } from './_providers/session-provider';
+import { ChainProvider } from './_contexts/chain/provider';
+import { CDPHooksProvider } from './_contexts/cdp';
+
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -45,10 +48,14 @@ export default function RootLayout({
         <Toaster />
         <Analytics />
         <SessionProvider>
-          <WagmiProvider>
-            <Navbar />
-            {children}
-          </WagmiProvider>
+        <ChainProvider>
+        <CDPHooksProvider>
+            <WagmiProvider>
+              <Navbar />
+              {children}
+            </WagmiProvider>
+          </CDPHooksProvider>
+        </ChainProvider>
         </SessionProvider>
       </body>
     </html>
