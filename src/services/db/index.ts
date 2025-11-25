@@ -11,7 +11,4 @@ export type {
   OnrampSession,
 } from '@/generated/prisma/browser';
 
-export {
-    SessionStatus,
-} from '@/generated/prisma/browser';
-
+export { SessionStatus } from '@/generated/prisma/browser';

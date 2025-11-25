@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useRef, useState, useEffect } from "react";
-import Hls from "hls.js";
-import type { VideoModel } from "@/generated/prisma/models/Video";
+import { useRef, useState, useEffect } from 'react';
+import Hls from 'hls.js';
+import type { VideoModel } from '@/generated/prisma/models/Video';
 
 type VideoPlayerProps = {
   id: string;
@@ -13,7 +13,7 @@ export function VideoPlayer({ id, video }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const hlsRef = useRef<Hls | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -22,13 +22,13 @@ export function VideoPlayer({ id, video }: VideoPlayerProps) {
     if (!videoRef.current) return;
 
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
       const res = await fetch(`/api/video/${id}/manifest`);
       if (!res.ok) {
         const errorText = await res.text();
-        setError(errorText || "Failed to fetch manifest");
+        setError(errorText || 'Failed to fetch manifest');
         setLoading(false);
         return;
       }
@@ -56,31 +56,31 @@ export function VideoPlayer({ id, video }: VideoPlayerProps) {
           if (data.fatal) {
             switch (data.type) {
               case Hls.ErrorTypes.NETWORK_ERROR:
-                setError("Network error. Please try again.");
+                setError('Network error. Please try again.');
                 hls.startLoad();
                 break;
               case Hls.ErrorTypes.MEDIA_ERROR:
-                setError("Media error. Attempting to recover...");
+                setError('Media error. Attempting to recover...');
                 hls.recoverMediaError();
                 break;
               default:
-                setError("Fatal error. Cannot recover.");
+                setError('Fatal error. Cannot recover.');
                 hls.destroy();
                 break;
             }
           }
         });
-      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         // Native HLS support (Safari)
         video.src = url;
         setLoading(false);
         video.play();
       } else {
-        setError("HLS is not supported in this browser");
+        setError('HLS is not supported in this browser');
         setLoading(false);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load video");
+      setError(err instanceof Error ? err.message : 'Failed to load video');
       setLoading(false);
     }
   };
@@ -97,16 +97,16 @@ export function VideoPlayer({ id, video }: VideoPlayerProps) {
       setDuration(video.duration);
     };
 
-    video.addEventListener("timeupdate", handleTimeUpdate);
-    video.addEventListener("loadedmetadata", handleLoadedMetadata);
-    video.addEventListener("play", () => setIsPlaying(true));
-    video.addEventListener("pause", () => setIsPlaying(false));
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    video.addEventListener('play', () => setIsPlaying(true));
+    video.addEventListener('pause', () => setIsPlaying(false));
 
     return () => {
-      video.removeEventListener("timeupdate", handleTimeUpdate);
-      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      video.removeEventListener("play", () => setIsPlaying(true));
-      video.removeEventListener("pause", () => setIsPlaying(false));
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.removeEventListener('play', () => setIsPlaying(true));
+      video.removeEventListener('pause', () => setIsPlaying(false));
     };
   }, []);
 
@@ -126,9 +126,9 @@ export function VideoPlayer({ id, video }: VideoPlayerProps) {
     const secs = Math.floor(seconds % 60);
 
     if (hours > 0) {
-      return `${hours}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+      return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
-    return `${minutes}:${secs.toString().padStart(2, "0")}`;
+    return `${minutes}:${secs.toString().padStart(2, '0')}`;
   };
 
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -174,7 +174,8 @@ export function VideoPlayer({ id, video }: VideoPlayerProps) {
               />
             </div>
             <span className="text-sm text-muted-foreground min-w-[80px] text-right">
-              {formatTime(currentTime)} / {formatTime(duration || video.duration)}
+              {formatTime(currentTime)} /{' '}
+              {formatTime(duration || video.duration)}
             </span>
           </div>
         )}
@@ -182,4 +183,3 @@ export function VideoPlayer({ id, video }: VideoPlayerProps) {
     </div>
   );
 }
-

@@ -9,7 +9,6 @@ import { SessionProvider } from './_providers/session-provider';
 import { ChainProvider } from './_contexts/chain/provider';
 import { CDPHooksProvider } from './_contexts/cdp';
 
-
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -48,14 +47,14 @@ export default function RootLayout({
         <Toaster />
         <Analytics />
         <SessionProvider>
-        <ChainProvider>
-        <CDPHooksProvider>
-            <WagmiProvider>
-              <Navbar />
-              {children}
-            </WagmiProvider>
-          </CDPHooksProvider>
-        </ChainProvider>
+          <ChainProvider>
+            <CDPHooksProvider>
+              <WagmiProvider>
+                <Navbar />
+                {children}
+              </WagmiProvider>
+            </CDPHooksProvider>
+          </ChainProvider>
         </SessionProvider>
       </body>
     </html>

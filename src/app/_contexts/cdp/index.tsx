@@ -11,7 +11,6 @@ const CDPHooksProviderBase = dynamic(
 
 import { cdpConfig } from './config';
 
-
 interface Props {
   children: React.ReactNode;
 }

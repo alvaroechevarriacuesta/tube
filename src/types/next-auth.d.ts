@@ -27,4 +27,3 @@ declare module 'next-auth/jwt' {
     providerAccountId?: string;
   }
 }
-

@@ -10,11 +10,8 @@ interface Props {
 }
 
 export const ChainProvider: React.FC<Props> = ({ children }) => {
-
-    // Defaulting this to base for now.
-  const [chain, setChainState] = useState<Chain | undefined>(
-    'base' as Chain
-  );
+  // Defaulting this to base for now.
+  const [chain, setChainState] = useState<Chain | undefined>('base' as Chain);
 
   const setChain = (chain: Chain | undefined) => {
     setChainState(chain);

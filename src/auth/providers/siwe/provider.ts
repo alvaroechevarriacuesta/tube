@@ -28,17 +28,19 @@ export default function SiweProvider() {
           return null;
         }
 
-        const message = JSON.parse(credentials.message as string) as SiweMessage;
+        const message = JSON.parse(
+          credentials.message as string
+        ) as SiweMessage;
         const signedMessage = credentials.signedMessage as string;
 
         // Verify the SIWE message
         const siweMessage = new SiweMessage(message);
         const result = await siweMessage.verify({ signature: signedMessage });
-        
+
         if (!result.success) {
           return null;
         }
-        
+
         const fields = result.data;
 
         // Check if message has expired
@@ -52,7 +54,7 @@ export default function SiweProvider() {
         // Use wallet address as the user identifier
         const address = fields.address.toLowerCase();
         const providerAccountId = address;
-        
+
         // Find or create user and account in Prisma
         let user = await prisma.user.findFirst({
           where: {
@@ -72,7 +74,9 @@ export default function SiweProvider() {
           // Create new user
           user = await prisma.user.create({
             data: {
-              email: credentials.email as string | undefined || `${address}@siwe.local`,
+              email:
+                (credentials.email as string | undefined) ||
+                `${address}@siwe.local`,
               name: address.slice(0, 6) + '...' + address.slice(-4),
               accounts: {
                 create: {
@@ -89,9 +93,11 @@ export default function SiweProvider() {
         } else {
           // Update account if it doesn't exist (shouldn't happen, but just in case)
           const account = user.accounts.find(
-            (acc) => acc.provider === SIWE_PROVIDER_ID && acc.providerAccountId === providerAccountId
+            acc =>
+              acc.provider === SIWE_PROVIDER_ID &&
+              acc.providerAccountId === providerAccountId
           );
-          
+
           if (!account) {
             await prisma.account.create({
               data: {
@@ -119,4 +125,3 @@ export default function SiweProvider() {
     },
   });
 }
-

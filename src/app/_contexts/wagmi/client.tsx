@@ -9,32 +9,32 @@ import { createWagmiConfig } from './config';
 import type { State } from 'wagmi';
 
 interface Props {
-    children: React.ReactNode;
-    initialState: State | undefined;
+  children: React.ReactNode;
+  initialState: State | undefined;
 }
 
 const wagmiConfig = createWagmiConfig();
 
 export const WagmiProviderClient: React.FC<Props> = ({
-    children,
-    initialState,
+  children,
+  initialState,
 }) => {
-    const [queryClient] = useState(
-        () =>
-            new QueryClient({
-                defaultOptions: {
-                    queries: {
-                        staleTime: 60 * 1000, // 1 minute
-                    },
-                },
-            })
-    );
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000, // 1 minute
+          },
+        },
+      })
+  );
 
-    return (
-        <QueryClientProvider client={queryClient}>
-            <WagmiProviderBase config={wagmiConfig} initialState={initialState}>
-                {children}
-            </WagmiProviderBase>
-        </QueryClientProvider>
-    );
+  return (
+    <QueryClientProvider client={queryClient}>
+      <WagmiProviderBase config={wagmiConfig} initialState={initialState}>
+        {children}
+      </WagmiProviderBase>
+    </QueryClientProvider>
+  );
 };

@@ -54,7 +54,7 @@ export function Navbar() {
   //   if (isConnecting) return 'Connecting...';
   //   if (session) {
   //     const signedInAddress = getDisplayAddress();
-  //     return signedInAddress 
+  //     return signedInAddress
   //       ? `${formatAddress(signedInAddress)}`
   //       : 'Signed in';
   //   }
