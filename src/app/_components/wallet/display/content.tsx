@@ -27,6 +27,7 @@ interface Props {
 
 export const EmbeddedWalletContent: React.FC<Props> = ({ user, address }) => {
   const { data: balance, isLoading } = useBalance();
+  console.log('balance', balance);
 
   const { data: session, status } = useSession();
 

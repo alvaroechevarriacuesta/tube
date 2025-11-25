@@ -1,8 +1,5 @@
 'use client';
 
-import { http } from 'wagmi';
-import { base } from 'wagmi/chains';
-
 import dynamic from 'next/dynamic';
 
 const CDPHooksProviderBase = dynamic(
@@ -11,27 +8,9 @@ const CDPHooksProviderBase = dynamic(
     ssr: false,
   }
 );
-import { createCDPEmbeddedWalletConnector } from '@coinbase/cdp-wagmi';
 
-import type { Config } from '@coinbase/cdp-hooks';
+import { cdpConfig } from './config';
 
-const cdpConfig: Config = {
-  projectId: process.env.NEXT_PUBLIC_CDP_PROJECT_ID!,
-  ethereum: {
-    createOnLogin: 'eoa' as const,
-  },
-  solana: {},
-};
-
-export const cdpEmbeddedWalletConnector = createCDPEmbeddedWalletConnector({
-  cdpConfig,
-  providerConfig: {
-    chains: [base],
-    transports: {
-      [base.id]: http(),
-    },
-  },
-});
 
 interface Props {
   children: React.ReactNode;
