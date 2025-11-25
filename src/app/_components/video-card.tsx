@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 import {
   Card,
   CardHeader,
@@ -6,8 +6,8 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from "@/components/ui/card";
-import type { VideoModel } from "@/generated/prisma/models/Video";
+} from '@/components/ui/card';
+import type { VideoModel } from '@/generated/prisma/models/Video';
 
 type VideoCardProps = {
   video: VideoModel;
@@ -19,9 +19,9 @@ function formatDuration(seconds: number): string {
   const secs = seconds % 60;
 
   if (hours > 0) {
-    return `${hours}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   }
-  return `${minutes}:${secs.toString().padStart(2, "0")}`;
+  return `${minutes}:${secs.toString().padStart(2, '0')}`;
 }
 
 export function VideoCard({ video }: VideoCardProps) {
@@ -46,4 +46,3 @@ export function VideoCard({ video }: VideoCardProps) {
     </Link>
   );
 }
-

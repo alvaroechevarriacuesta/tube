@@ -1,6 +1,6 @@
-import { notFound } from "next/navigation";
-import { getVideo } from "@/services/db/videos/get";
-import { VideoPlayer } from "./_components/video-player";
+import { notFound } from 'next/navigation';
+import { getVideo } from '@/services/db/videos/get';
+import { VideoPlayer } from './_components/video-player';
 
 type WatchPageProps = {
   params: Promise<{ id: string }>;
@@ -28,4 +28,3 @@ export default async function WatchPage({ params }: WatchPageProps) {
     </div>
   );
 }
-
